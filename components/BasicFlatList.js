@@ -7,6 +7,7 @@ import { FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHigh
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
 import AddModal from './AddModal';
+import EditModal from './EditModal';
 
 // Styles
 const styles = StyleSheet.create({
@@ -24,8 +25,18 @@ class FlatListItem extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeRowKey: null // save the key of deleting object
+            activeRowKey: null, // save the key of deleting object
+            numberOfRefresh: 0
         };
+    }
+
+    // method
+    refreshFlatListItem = () => {
+        this.setState(preState => {
+            return {
+                numberOfRefresh: preState.numberOfRefresh + 1
+            };
+        });
     }
 
     render() {
@@ -41,7 +52,18 @@ class FlatListItem extends Component {
             onOpen: (secId, rowId, direction) => { // swipe from right to left
                 this.setState({ activeRowKey: this.props.item.key }); // assign the key value to the state
             },
-            right: [ // the delete button
+            right: [ 
+                // the edit button
+                {
+                    // `edit button` press event handler
+                    onPress: () => {
+                        // alert("Update");
+                        this.props.parentFlatList.refs.editModal.showEditModal(flatListData[this.props.index], this);
+                    },
+                    text: 'Edit', 
+                    type: 'primary'
+                },
+                // the delete button
                 {
                     // `delete button` press event handler
                     onPress: () => {
@@ -128,7 +150,7 @@ export default class BasicFlatList extends Component {
                     ref={"flatList"}
                     data={flatListData} // data is a plain array
                     renderItem={({item, index}) => { // takes an item from data and renders it into the list
-                        // console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);
+                        // console.log(`Item = ${JSON.stringify(item)}, index = ${index}`); // index = 0, 1, ...
                         return (
                             // This <FlatListItem> will extends the properties and methods of this parent component
                             <FlatListItem item={item} index={index} parentFlatList={this}></FlatListItem>
@@ -137,7 +159,8 @@ export default class BasicFlatList extends Component {
                 >
                 </FlatList>
                 {/* <AddModal> props: ref, parentFlatList */}
-                <AddModal ref={'addModal'} parentFlatList={this} ></AddModal>
+                <AddModal ref={'addModal'} parentFlatList={this}></AddModal>
+                <EditModal ref={'editModal'} parentFlatList={this}></EditModal>
             </View>
         );
     }
