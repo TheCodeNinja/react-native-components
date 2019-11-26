@@ -9,5 +9,6 @@ import HorizontalScrollView from './components/HorizontalScrollView';
 import ViewPagerDemo from './components/ViewPagerDemo';
 import BasicFlatList from './components/BasicFlatList';
 import HorizontalFlatList from './components/HorizontalFlatList';
+import BasicSectionList from './components/BasicSectionList';
 
-AppRegistry.registerComponent(appName, () => HorizontalFlatList);
+AppRegistry.registerComponent(appName, () => BasicSectionList);
