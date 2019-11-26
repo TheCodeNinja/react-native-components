@@ -3,7 +3,7 @@ FlatList Component
 Swipe to delete item in FlatList
 */
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View, Image, Alert } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight } from 'react-native';
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
 
@@ -109,9 +109,18 @@ export default class BasicFlatList extends Component {
         });
     }
 
+    _onPressAdd = () => {
+        alert("You add Item");
+    }
+
     render() {
         return (
-            <View style={{ flex: 1, marginTop: 22 }}>
+            <View style={{ flex: 1, marginTop: Platform.OS === 'ios' ? 34 : 0}}>
+                <View style={{ backgroundColor: 'tomato', flexDirection: 'row', justifyContent:'flex-end', alignItems: 'center', height: 64}}>
+                    <TouchableHighlight style={{ marginRight: 10 }} underlayColor='tomato' onPress={this._onPressAdd}>
+                        <Image style={{width: 35, height: 35}} source={require('../images/icons-add.png')} />
+                    </TouchableHighlight>
+                </View>
                 <FlatList // props: data, renderItem, ...
                     data={flatListData} // data is a plain array
                     renderItem={({item, index}) => { // takes an item from data and renders it into the list
