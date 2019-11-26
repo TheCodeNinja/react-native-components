@@ -7,5 +7,6 @@ import {name as appName} from './app.json';
 import VerticalScrollView from './components/VerticalScrollView';
 import HorizontalScrollView from './components/HorizontalScrollView';
 import ViewPagerDemo from './components/ViewPagerDemo';
+import BasicFlatList from './components/BasicFlatList';
 
-AppRegistry.registerComponent(appName, () => ViewPagerDemo);
+AppRegistry.registerComponent(appName, () => BasicFlatList);
