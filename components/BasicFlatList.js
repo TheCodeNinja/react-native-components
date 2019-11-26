@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, Image, Alert, Platform, TouchableHighlight } from 'react-native';
 import flatListData from '../data/flatListData';
 import Swipeout from 'react-native-swipeout';
+import AddModal from './AddModal';
 
 // Styles
 const styles = StyleSheet.create({
@@ -107,10 +108,12 @@ export default class BasicFlatList extends Component {
                 deletedRowKey: rowKey // change state when refresh
             }; // When state changes, component re-renders automatically
         });
+        this.refs.flatList.scrollToEnd();
     }
 
     _onPressAdd = () => {
-        alert("You add Item");
+        // alert("You add Item");
+        this.refs.addModal.showAddModal();
     }
 
     render() {
@@ -121,7 +124,8 @@ export default class BasicFlatList extends Component {
                         <Image style={{width: 35, height: 35}} source={require('../images/icons-add.png')} />
                     </TouchableHighlight>
                 </View>
-                <FlatList // props: data, renderItem, ...
+                <FlatList // props: ref, data, renderItem, ...
+                    ref={"flatList"}
                     data={flatListData} // data is a plain array
                     renderItem={({item, index}) => { // takes an item from data and renders it into the list
                         // console.log(`Item = ${JSON.stringify(item)}, index = ${index}`);
@@ -132,6 +136,8 @@ export default class BasicFlatList extends Component {
                     }}
                 >
                 </FlatList>
+                {/* <AddModal> props: ref, parentFlatList */}
+                <AddModal ref={'addModal'} parentFlatList={this} ></AddModal>
             </View>
         );
     }
