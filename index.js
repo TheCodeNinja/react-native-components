@@ -10,5 +10,6 @@ import ViewPagerDemo from './components/ViewPagerDemo';
 import BasicFlatList from './components/BasicFlatList';
 import HorizontalFlatList from './components/HorizontalFlatList';
 import BasicSectionList from './components/BasicSectionList';
+import LifeCycleComponent from './components/LifeCycleComponent';
 
-AppRegistry.registerComponent(appName, () => BasicSectionList);
+AppRegistry.registerComponent(appName, () => LifeCycleComponent);
